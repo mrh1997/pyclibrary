@@ -131,18 +131,6 @@ class Ellipsis(LiteralNode):
 # --- Variables ---------------------------------------------------------------
 # =============================================================================
 
-class Context(PyAstNode):
-    """Context helping determining the operation performed on a variable.
-
-    """
-    pass
-
-
-class Load(Context): pass
-class Store(Context): pass
-class Del(Context): pass
-
-
 class Name(ExpressionNode):
     """A variable name.
 
@@ -151,13 +139,8 @@ class Name(ExpressionNode):
     id : unicode
         Name of the variable.
 
-    ctx : Context
-        Context in which the variable is referenced (is it
-        loaded/stored/deleted ?)
-
     """
-    __slots__ = ('id', 'ctx')
-    __defaults__ = {'ctx': Load}
+    __slots__ = ('id',)
 
 
 class Starred(ExpressionNode):
@@ -374,12 +357,8 @@ class Attribute(ExpressionNode):
     attr : unicode
         Name of the attribute.
 
-    ctx : Context
-        Context in which the attribute is accessed (is it
-        loaded/stored/deleted)
-
     """
-    __slots__ = ('value', 'attr', 'ctx')
+    __slots__ = ('value', 'attr')
 
 
 # =============================================================================
@@ -397,11 +376,8 @@ class Subscript(ExpressionNode):
     slice : SliceNnode
         Index or slice of the object(s) being accessed.
 
-    ctx : Context
-        Context in which the item is accessed (is it loaded/stored/deleted)
-
     """
-    __slots__ = ('value', 'slice', 'ctx')
+    __slots__ = ('value', 'slice')
 
 
 # --- Slices
